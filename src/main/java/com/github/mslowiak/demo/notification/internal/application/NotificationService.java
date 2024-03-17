@@ -19,7 +19,7 @@ public class NotificationService {
     private final ExternalNotificationPort externalNotificationPort;
     private final ApplicationEventPublisher eventPublisher;
 
-    void sendNotification(OrderCreatedNotification orderCreatedNotification) {
+    public void sendNotification(OrderCreatedNotification orderCreatedNotification) {
         final var recipientId = orderCreatedNotification.getRecipientId();
         final var customerEmail = getCustomerEmail(recipientId);
         final var notificationMessage = orderCreatedNotification.getNotificationMessage();
