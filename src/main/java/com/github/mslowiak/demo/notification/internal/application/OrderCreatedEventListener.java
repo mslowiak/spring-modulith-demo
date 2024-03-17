@@ -4,11 +4,8 @@ import com.github.mslowiak.demo.notification.internal.domain.OrderCreatedNotific
 import com.github.mslowiak.demo.order.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 @Slf4j
 @Component
@@ -17,9 +14,8 @@ public class OrderCreatedEventListener {
 
     private final NotificationService notificationService;
 
-    @Async
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @TransactionalEventListener
+    @ApplicationModuleListener
+    // CompletedEventPublications/IncompleteEventPublications
     public void handleOrderCreated(OrderCreatedEvent orderCreatedEvent) {
         log.info("Handling order created event.");
         final var orderCreatedNotification = OrderCreatedNotification.of(
